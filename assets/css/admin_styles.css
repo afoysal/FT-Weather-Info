@@ -1,0 +1,128 @@
+input[name=ft_wi_api_key] {
+    width: 30% !important;
+}
+
+#ft_wi_collect_api {
+    text-align: center;
+    width: 30%;
+}
+
+#ft_wi_weather_settings .form-table td,
+#ft_wi_display_settings .form-table td,
+#ft_wi_style_settings .form-table td {
+    padding-left: 90px !important;
+}
+
+#ft_wi_weather_settings .form-table th,
+#ft_wi_display_settings .form-table th,
+#ft_wi_style_settings .form-table th {
+    padding-left: 10px !important;
+}
+
+#ft_wi_style_settings fieldset .form-table td {
+    padding-left: 78px !important;
+}
+
+.ft_wi_switch {
+    position: relative;
+    display: inline-block;
+    width: 52%;
+    height: 30px;
+}
+
+.ft_wi_switch input {
+    display: none;
+}
+
+.ft_wi_slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ca2222;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.ft_wi_slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.ft_wi_slider {
+    background-color: #2ab934;
+}
+
+input:checked+.ft_wi_slider:before {
+    -webkit-transform: translateX(55px);
+    -ms-transform: translateX(55px);
+    transform: translateX(55px);
+}
+
+.ft_wi_show {
+    display: none;
+}
+
+.ft_wi_show,
+.ft_wi_hide {
+    color: white;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.ft_wi_show {
+    left: 30%;
+}
+
+.ft_wi_hide {
+    left: 70%;
+}
+
+input:checked+.ft_wi_slider .ft_wi_show {
+    display: block;
+}
+
+input:checked+.ft_wi_slider .ft_wi_hide {
+    display: none;
+}
+
+#ft_weather_info_short_code {
+    padding-left: 100px;
+}
+
+#the-list .ft-weather-info-shortcode {
+    border: 1px solid #8c8f94;
+    padding: 8px;
+    font-size: 17px;
+    width: 230px;
+    background-color: #f0f0f1;
+    border-radius: 5px;
+}
+
+tfoot tr th.column-ft_weather_info_short_code {
+    padding-left: 100px !important;
+}
+
+.ft_weather_info_short_code.column-ft_weather_info_short_code {
+    padding-left: 100px !important;
+}
+
+#ft_weather_info_api_key table tbody tr:nth-child(1) th {
+    width: 20%;
+}
+
+#ft_wi_weather_info_api_key .form-table th {
+    width: 18% !important;
+}

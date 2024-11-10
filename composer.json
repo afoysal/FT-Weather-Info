@@ -1,0 +1,17 @@
+{
+    "name": "foysal/wp-weather-info",
+    "description": "WordPress Plugin to display Weather Information",
+    "type": "wordpress-plugin",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Foysal",
+            "email": "nowphp@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": { "Inc\\": "./inc" }
+    }
+}
