@@ -98,7 +98,7 @@ class Admin
         global $post;
 
         // nonce check
-        if ( !isset( $_POST['ft_wi_nonce'] ) || !wp_verify_nonce( $_POST['ft_wi_nonce'], basename(__FILE__) ) ) {
+        if ( !isset( $_POST['ft_wi_nonce'] ) || !check_admin_referer(basename(__FILE__), 'ft_wi_nonce') ) {
             return $post_id;
         }
 
@@ -108,7 +108,7 @@ class Admin
         }
 
         //check current user permissions
-        $post_type = get_post_type_object( $post->post_type );
+        $post_type = get_post_type_object(get_post_type($post_id));
 
         if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ) {
             return $post_id;
@@ -119,7 +119,7 @@ class Admin
             return $post_id;
         }
 
-        //Filtering
+        //Filtering fields and saving meta values
         $fields = [
             'location_input'         => FILTER_SANITIZE_SPECIAL_CHARS,
             'location'               => FILTER_SANITIZE_SPECIAL_CHARS,
@@ -169,12 +169,9 @@ class Admin
             } else {
                 delete_post_meta($post_id, $field_name);
             }
-        }
-
+        }   
         
-
-        wp_redirect( admin_url( 'edit.php?post_type=weather_info' ) );
-        exit;
+        return $post_id;
     }
 
 
@@ -299,26 +296,26 @@ class Admin
 
         //Fields array
         $fields = [
-            'location'    => '<input type="text" value="' . (!empty($ft_wi_stored_meta['location_input']) ? esc_attr($ft_wi_stored_meta['location_input'][0]) : '') . '"  name="location_input" />',
+            'location'   => '<input type="text" value="' . (!empty($ft_wi_stored_meta['location_input']) ? esc_attr($ft_wi_stored_meta['location_input'][0]) : '') . '"  name="location_input" />',
 
-            'temperature' => '<select name="temperature_unit">
+            'temperature'=> '<select name="temperature_unit">
                                 <option ' . (!empty($ft_wi_stored_meta['temperature_unit']) && 'celcius' == $ft_wi_stored_meta['temperature_unit'][0] ? 'selected="selected"' : '') . ' value="celcius">Celcius (&deg;C)</option>
                                 <option ' . (!empty($ft_wi_stored_meta['temperature_unit']) && 'fahrenheit' == $ft_wi_stored_meta['temperature_unit'][0] ? 'selected="selected"' : '') . ' value="fahrenheit">Fahrenheit (&deg;F)</option>
                             </select>',
 
-            'time'        => '<select name="time">
+            'time'      => '<select name="time">
                             <option ' . (!empty($ft_wi_stored_meta['time']) && "g" == $ft_wi_stored_meta['time'][0] ? 'selected="selected"' : '') . ' value="g">12 Hrs</option>
                             <option ' . (!empty($ft_wi_stored_meta['time']) && "H" == $ft_wi_stored_meta['time'][0] ? 'selected="selected"' : '') . ' value="H">24 Hrs</option>
                         </select>',
 
-            'date'        => '<select name="date_current">
+            'date'      => '<select name="date_current">
                             <option ' . (!empty($ft_wi_stored_meta['date_current']) && 'd M Y' == $ft_wi_stored_meta['date_current'][0] ? 'selected="selected"' : '') . ' value="d M Y">' . gmdate('d M Y') . '</option>
                             <option ' . (!empty($ft_wi_stored_meta['date_current']) && 'd/m/y' == $ft_wi_stored_meta['date_current'][0] ? 'selected="selected"' : '') . ' value="d/m/y">' . gmdate('d/m/y') . '</option>
                             <option ' . (!empty($ft_wi_stored_meta['date_current']) && 'Y/m/d' == $ft_wi_stored_meta['date_current'][0] ? 'selected="selected"' : '') . ' value="Y/m/d">' . gmdate('Y/m/d') . '</option>
                             <option ' . (!empty($ft_wi_stored_meta['date_current']) && 'M j, Y' == $ft_wi_stored_meta['date_current'][0] ? 'selected="selected"' : '') . ' value="M j, Y">' . gmdate('M j, Y') . '</option>
                         </select>',
 
-            'language'    => '<select name="language">' . $languages . '</select>',
+            'language'  => '<select name="language">' . $languages . '</select>',
         ];
 
         wp_nonce_field( basename(__FILE__), 'ft_wi_nonce' );
@@ -559,9 +556,9 @@ class Admin
      * @return void
      */
     public function admin_menu() {
-        add_menu_page('Weather Information', 'Weather Info', 'manage_options', 'weather_info', [$this, 'api_key_page'], 'dashicons-info-outline', 30);
+        add_menu_page( 'Weather Information', 'Weather Info', 'manage_options', 'weather_info', [$this, 'api_key_page'], 'dashicons-info-outline', 30 );
         add_submenu_page( 'weather_info', 'Weather Information | API Key', 'API Key', 'manage_options', 'weather_info_page', [ $this, 'api_key_page' ], 2 );
-        add_submenu_page('weather_info', 'Weather Information | New Weather', 'Add Weather', 'manage_options', 'post-new.php?post_type=weather_info', '', 1);
+        add_submenu_page( 'weather_info', 'Weather Information | New Weather', 'Add Weather', 'manage_options', 'post-new.php?post_type=weather_info', '', 1 );
     }
 
 

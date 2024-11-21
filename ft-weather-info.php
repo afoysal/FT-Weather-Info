@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name:       FT Weather Info
- * Plugin URI:        https://wordpess.org/plugins/ft-weather-info/
+ * Plugin URI:        https://codecanyon.net/item/ft-weather-info/
  * Description:       This plugin will show Weather Information on your WebSite.
  * Version:           1.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Author:            Muhammad Abu Foysal
  * Author URI:        https://www.facebook.com/muhammadabu.foysal
- * License:           GPL v2 or later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * License:           Commercial
+ * License URI:       https://themeforest.net/licenses/terms/regular
  * Text Domain:       ft-weather-info
  */
 
